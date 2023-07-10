@@ -149,6 +149,7 @@ runCommand "xcodebuild-${xcbuild.version}" {
     --add-flags "DERIVED_DATA_DIR=." \
     --set DEVELOPER_DIR "$out" \
     --set SDKROOT ${sdkName} \
+    --prefix PATH : "${lib.makeBinPath [ xcbuild "${xcbuild}/Toolchains/XcodeDefault.xctoolchain" ]}"}\
     --run '[ "$#" -eq 2 ] && [ "$1" = "-version" ] && [ "$2" = "-sdk" ] && echo ${sdkName}.sdk - macOS ${sdkVer} \(macosx${sdkVer}\) && set -- "$@" "${sdkName}"' \
     --run '[ "$1" = "-version" ] && [ "$#" -eq 1 ] && (echo Xcode ${xcodeVer}; echo Build version ${sdkBuildVersion}) && exit 0' \
     --run '[ "$1" = "-license" ] && exit 0'
